@@ -1,0 +1,230 @@
+@import "reset.scss" ;
+
+// Variables
+$bg-color:#DDD;
+$cell-border:darken($bg-color, 10%);
+
+$font-size:12px;
+$font-color:#444;
+
+$radius-sm:3px;
+$radius-lg:5px;
+
+$padding-sm:3px;
+$padding-lg:10px;
+
+$margin-sm:5px;
+$margin-lg:15px;
+
+/*
+
+Html elements
+------------------*/
+body{
+  background-color:$bg-color;
+  font-family: sans-serif;
+  font-size:$font-size;
+  color:$font-color;
+  line-height: $font-size+2*$padding-sm;
+}
+
+/* Remove controls from Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+  text-align: right;
+}
+
+/* Re-applies the controls on :hover and :focus */
+input[type="number"]:hover,
+input[type="number"]:focus {
+  -moz-appearance: number-input;
+}
+
+button, .btn{
+  border-radius:$radius-sm;
+  padding:$padding-sm;
+  border:1px solid $cell-border;
+  background-color:lighten($cell-border, 15%);
+}
+button:hover, .btn:hover{
+  background-color:$cell-border;
+}
+
+input{
+  background-color:$bg-color;
+  border:1px solid $cell-border;
+  padding:$padding-sm;
+  border-bottom-width: 3px;
+}
+input:focus{
+  background-color: lighten($bg-color, 10%);
+}
+
+/*
+
+App specific elements
+------------------*/
+#menuContent{
+  background-color: darken($bg-color, 3%);
+  display: flex;
+  border-bottom:3px solid transparentize($cell-border, 0.3);
+  padding: $padding-sm $padding-lg;
+
+  div{
+    display: inline-block;
+    padding:0px $padding-lg;
+    border-left:1px solid $cell-border;
+    div.menuCol:nth-child(1){
+      margin-left:$padding-lg;
+    }
+  }
+  // First item
+  div:nth-child(1){
+    border:none;
+    padding-left:0px;
+  }
+  input{
+    max-width:50px;
+  }
+}
+
+#menuToggle{
+  display: none;
+}
+
+/** Game wrapper */
+#board{
+  padding: $margin-lg;
+  //height: 100%;
+  max-width:75vh;
+  max-height: 100vh;
+}
+
+/** Game contents */
+#game{
+  display: table;
+  border:1px solid $cell-border;
+  border-bottom: 0px;
+  border-right: 0px;
+  width:100%;
+  .row{
+    display: table-row;
+  }
+  .cell{
+    display: table-cell;
+    border:1px solid $cell-border;
+    background-color: lighten($cell-border, 15%);
+    transition: 0.5s;
+    width: 8px;
+    border-top: 0px;
+    border-left: 0px;
+  }
+  .cell-alive{
+    background-color: $cell-border;
+  }
+  .cell-alive:hover{
+    background-color: lighten($cell-border, 5%) !important;
+  }
+  .cell:hover{
+    background-color: lighten($cell-border, 20%);
+    transition: 0s;
+  }
+
+  .cell:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }
+}
+
+#current_generation:disabled{
+  border-color: transparent;
+  background-color: transparent;
+  font-weight:bold;
+  text-align:center;
+}
+
+// Content
+.cell-alive{
+  background-color: darken($cell-border, 20%);
+  :hover{
+    background-color: darken($cell-border, 20%);
+  }
+}
+
+/** Medium displays */
+@media(max-width:700px){
+  .menuCol{
+    display:block;
+    width:100%;
+    border:0px !important;
+  }
+  #current_generation{
+    text-align: center;
+    min-width:100%;
+  }
+  button, .btn{
+    width:100%;
+    margin-bottom:$margin-lg;
+  }
+
+}
+
+/** Small screens */
+@media (max-width: 350px) {
+  input{
+    display: block;
+    min-width:100%;
+  }
+  #menuContent{
+    flex-direction: column;
+    div, .menuCol{
+      display:block;
+      padding:$padding-sm $padding-lg;
+      //margin-top:$margin-lg;
+      border-top:1px solid $cell-border;
+      border-left:0px;
+      div.menuCol:nth-child(1){
+        margin-left: -$padding-lg;
+      }
+    }
+    .menuCol{
+      margin-left:-$padding-lg;
+      margin-right:-$padding-lg;
+    }
+    div:nth-child(1){
+      border:none;
+      padding:$padding-sm $padding-lg;
+    }
+    input[type="checkbox"]{
+      display:inline-block;
+      min-width: auto;
+    }
+  }
+  #menuToggle{
+    display:block;
+    font-weight:bold;
+    text-align:center;
+    color:lighten($font-color, 15%);
+    width:25%;
+    margin-left:50%;
+    transform: translateX(-50%);
+    border:1px solid $cell-border;
+    border-bottom:3px solid $cell-border;
+    border-top:none;
+    border-bottom-left-radius: $margin-sm;
+    border-bottom-right-radius: $margin-sm;
+    padding: $padding-sm $padding-lg;
+    margin-top:-3px;
+    background-color:darken($bg-color, 3%);
+  }
+  button{
+    margin-bottom:$margin-sm;
+  }
+  #game{
+    border:1px solid $cell-border;
+    .cell{
+      border:0px;
+    }
+  }
+}
