@@ -1,5 +1,10 @@
 import React from 'react';
 
+/* ------------------------------
+
+Menu
+
+------------------------------ */
 class Menu extends React.Component{
   constructor(props){
     super(props);
